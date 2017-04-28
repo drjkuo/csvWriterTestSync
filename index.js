@@ -52,8 +52,14 @@ var path = require('path');
     //     console.log("Asynchronous write: success" ); // + data.toString()
     //  });
 
-     var fd = fs.openSync('./tmpno/1/2/input.txt', 'w+');
-     fs.writeSync(fd, 'contents to append');
+     var fd = fs.createWriteStream('./tmpno/1/2/input.txt');
+    //  fs.writeSync(fd, 'contents to append');
+
+     writer.pipe(fd);
+    //  console.log('FD', fd);
+     writer.write({hello: "world", foo: "bar", baz: "taco"});
+     writer.write({hello: "world1", foo: "bar1", baz: "taco1"});
+     writer.end();
 
 
   });
